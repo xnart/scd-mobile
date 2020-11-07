@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 
 class GreetingPage extends StatelessWidget {
-  const GreetingPage({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      runSpacing: 25,
-      children: [
-        greeting(),
-        Divider(color: Colors.white),
-        Center(
-          child: Text(
-            "I just had...",
-            textScaleFactor: 1.5,
-            style: TextStyle(fontWeight: FontWeight.bold),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 35),
+      height: double.infinity,
+      child: Wrap(
+        runSpacing: 25,
+        children: [
+          greeting(),
+          Divider(color: Colors.white),
+          Center(
+            child: Text(
+              "I just had...",
+              textScaleFactor: 1.5,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
-        ),
-        buttonCard(Icons.wc, "bowel movement", color: Colors.deepOrange),
-        buttonCard(Icons.set_meal, "meal", color: Colors.blue),
-        buttonCard(Icons.error_outline, "symptom", color: Colors.red)
-      ],
+          buttonCard(Icons.wc, "bowel movement", color: Colors.deepOrange),
+          buttonCard(Icons.set_meal, "meal", color: Colors.blue),
+          buttonCard(Icons.error_outline, "symptom", color: Colors.red)
+        ],
+      ),
     );
   }
 

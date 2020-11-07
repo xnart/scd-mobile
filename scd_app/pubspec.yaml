@@ -28,6 +28,12 @@ dependencies:
   flutter_mobx: ^1.1.0+2
   mobx_codegen: ^1.1.2
   get: ^3.15.0
+  data_tables: ^1.0.3
+  firebase_core: ^0.5.2
+  firebase_auth: ^0.18.3
+  cloud_firestore: ^0.14.3
+  json_serializable: ^3.5.0
+  json_annotation: ^3.1.0
 
 
 

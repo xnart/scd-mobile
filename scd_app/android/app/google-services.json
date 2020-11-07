@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "838978762575",
+    "firebase_url": "https://scd-mobile-dcda9.firebaseio.com",
+    "project_id": "scd-mobile-dcda9",
+    "storage_bucket": "scd-mobile-dcda9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838978762575:android:32649623e54784f732f73a",
+        "android_client_info": {
+          "package_name": "com.xnart.scd_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838978762575-ovr5o1v4i5soiql2v85lesahp5dul438.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTh1B-kQh3ArfwS_nRIPPqXHMtK5kwVKg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838978762575-ovr5o1v4i5soiql2v85lesahp5dul438.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

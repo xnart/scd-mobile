@@ -15,12 +15,24 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
       onWillPop: () => customPop(context),
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomPadding: true,
         backgroundColor: Colors.white,
         bottomNavigationBar: bottomBar(),
         appBar: MyAppBar(),
-        body: Container(
-          margin: EdgeInsets.symmetric(horizontal: 35),
-          child: AnimatedSwitcher(duration: Duration(seconds: 1), child: determinePage()),
+        body: Observer(
+          builder: (_) => Container(
+            child: AnimatedSwitcher(
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  var begin = Offset(-1.0, 0.0);
+                  var end = Offset.zero;
+                  var tween = Tween(begin: begin, end: end);
+                  var offsetAnimation = animation.drive(tween);
+                  return SlideTransition(child: child, position: offsetAnimation);
+                },
+                duration: Duration(milliseconds: 300),
+                child: determinePage()),
+          ),
         ),
       ),
     );
@@ -38,16 +50,14 @@ class HomePage extends StatelessWidget {
   }
 
   Widget determinePage() {
-    return Observer(builder: (_) {
-      switch (navigationStore.currentPage) {
-        case HomePages.GREETING:
-          return GreetingPage(key: UniqueKey());
-        case HomePages.SCD_LIST:
-          return SCDFoodListPage(key: UniqueKey());
-        default:
-          return Container();
-      }
-    });
+    switch (navigationStore.currentPage) {
+      case HomePages.GREETING:
+        return GreetingPage();
+      case HomePages.SCD_LIST:
+        return SCDFoodListPage();
+      default:
+        return Container(key: UniqueKey());
+    }
   }
 
   Widget bottomBar() {

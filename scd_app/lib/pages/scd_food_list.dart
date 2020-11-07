@@ -1,54 +1,47 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get/get.dart';
+import 'package:scd_app/stores/scd_list_store.dart';
 
 class SCDFoodListPage extends StatelessWidget {
-  const SCDFoodListPage({Key key}) : super(key: key);
+  final SCDListStore scdListStore = Get.find();
+
+  SCDFoodListPage() {
+    scdListStore.fetchSCDFoods();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return DataTable(
-      columns: const <DataColumn>[
-        DataColumn(
-          label: Text(
-            'Name',
-            style: TextStyle(fontStyle: FontStyle.italic),
+    return Observer(
+      builder: (_) => Container(
+        width: double.infinity,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: PaginatedDataTable(
+            columnSpacing: 0,
+            sortAscending: scdListStore.ascending,
+            showCheckboxColumn: false,
+            rowsPerPage: MediaQuery.of(context).size.height ~/ 90,
+            sortColumnIndex: scdListStore.sortIndex,
+            columns: [
+              DataColumn(
+                label: Expanded(
+                  child: Text(
+                    'Food',
+                  ),
+                ),
+              ),
+              DataColumn(
+                numeric: true,
+                label: Text('Legal'),
+              ),
+            ],
+            source: scdListStore.tableSource,
+            header: Text("SCD Food List"),
           ),
         ),
-        DataColumn(
-          label: Text(
-            'Age',
-            style: TextStyle(fontStyle: FontStyle.italic),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'Role',
-            style: TextStyle(fontStyle: FontStyle.italic),
-          ),
-        ),
-      ],
-      rows: const <DataRow>[
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Sarah')),
-            DataCell(Text('19')),
-            DataCell(Text('Student')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Janine')),
-            DataCell(Text('43')),
-            DataCell(Text('Professor')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('William')),
-            DataCell(Text('27')),
-            DataCell(Text('Associate Professor')),
-          ],
-        ),
-      ],
+      ),
     );
   }
 }
