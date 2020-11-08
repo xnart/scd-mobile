@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:scd_app/components/MyAppBar.dart';
+import 'package:scd_app/components/my_app_bar.dart';
 import 'package:scd_app/pages/home/scd_food_list.dart';
 import 'package:scd_app/pages/home/greeting.dart';
 import 'package:scd_app/stores/navigation_store.dart';

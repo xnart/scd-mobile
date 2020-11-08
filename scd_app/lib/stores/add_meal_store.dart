@@ -15,6 +15,9 @@ abstract class _AddMealStore with Store {
   TimeOfDay selectedTime = TimeOfDay.now();
 
   @observable
+  DateTime selectedDate = DateTime.now();
+
+  @observable
   ObservableSet<SCDListModel> selectedFoods = ObservableSet.of([]);
 
   @action

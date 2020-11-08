@@ -1,15 +1,18 @@
 import 'dart:math';
 
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
-import 'package:scd_app/components/MyAppBar.dart';
+import 'package:scd_app/components/my_app_bar.dart';
 import 'package:scd_app/stores/add_meal_store.dart';
 
 class AddMealPage extends StatelessWidget {
   final AddMealStore store = Get.find();
   final TextEditingController _timeController = TextEditingController(text: TimeOfDay.now().format(Get.context));
+  final TextEditingController _dateController =
+      TextEditingController(text: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]));
   final TextEditingController _typeAheadController = TextEditingController();
 
   @override
@@ -23,16 +26,36 @@ class AddMealPage extends StatelessWidget {
         child: Observer(
           builder: (_) => SingleChildScrollView(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                formCard(
-                  child: TextField(
-                    controller: _timeController,
-                    decoration: InputDecoration(labelText: "Time", border: OutlineInputBorder()),
-                    readOnly: true,
-                    onTap: () {
-                      _selectDate(context);
-                    },
-                  ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                      child: formCard(
+                        child: TextField(
+                          controller: _dateController,
+                          decoration: InputDecoration(labelText: "Date", border: OutlineInputBorder()),
+                          readOnly: true,
+                          onTap: () {
+                            _selectDate(context);
+                          },
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: formCard(
+                        child: TextField(
+                          controller: _timeController,
+                          decoration: InputDecoration(labelText: "Time", border: OutlineInputBorder()),
+                          readOnly: true,
+                          onTap: () {
+                            _selectTime(context);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 formCard(
                   child: foodField(context),
@@ -67,7 +90,7 @@ class AddMealPage extends StatelessWidget {
                     width: 150,
                     decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -128,7 +151,21 @@ class AddMealPage extends StatelessWidget {
     );
   }
 
-  Future<TimeOfDay> _selectDate(BuildContext context) async {
+  Future<DateTime> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: store.selectedDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null) {
+      _dateController.text = formatDate(picked, [yyyy, '-', mm, '-', dd]);
+      return store.selectedDate = picked;
+    }
+    return DateTime.now();
+  }
+
+  Future<TimeOfDay> _selectTime(BuildContext context) async {
     final TimeOfDay picked = await showTimePicker(context: context, initialTime: store.selectedTime);
     if (picked != null) {
       _timeController.text = picked.format(context);
