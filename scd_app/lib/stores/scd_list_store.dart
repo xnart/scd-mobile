@@ -29,9 +29,12 @@ abstract class _SCDListStore with Store {
           Get.defaultDialog(
               title: "Note",
               content: ConstrainedBox(
-                constraints: BoxConstraints(maxHeight: 400),
+                constraints: BoxConstraints(maxHeight: Get.height / 2 - 50),
                 child: SingleChildScrollView(
-                  child: Text(scdModel.note),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(scdModel.note),
+                  ),
                 ),
               ));
         }
