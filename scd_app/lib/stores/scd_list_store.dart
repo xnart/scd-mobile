@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:scd_app/models/scd_list_model.dart';
@@ -23,7 +24,18 @@ abstract class _SCDListStore with Store {
   bool ascending = true;
 
   @computed
-  SCDTableSource get tableSource => SCDTableSource(filteredList, onTap: (_) {});
+  SCDTableSource get tableSource => SCDTableSource(filteredList, onTap: (SCDListModel scdModel) {
+        if (scdModel.note.isNotEmpty) {
+          Get.defaultDialog(
+              title: "Note",
+              content: ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: 400),
+                child: SingleChildScrollView(
+                  child: Text(scdModel.note),
+                ),
+              ));
+        }
+      });
 
   _SCDListStore() {
     fetchSCDFoods();
@@ -52,5 +64,4 @@ abstract class _SCDListStore with Store {
     ascending = asc;
     tableSource.sort(getField, i, asc);
   }
-
 }

@@ -5,7 +5,7 @@ typedef RowTapped<RecordModel> = void Function(RecordModel record);
 
 class SCDTableSource extends DataTableSource {
   final List<SCDListModel> _records;
-  final RowTapped onTap;
+  final RowTapped<SCDListModel> onTap;
 
   SCDTableSource(this._records, {this.onTap}) {
     sort((record) => record.food, 0, true);
