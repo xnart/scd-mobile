@@ -14,7 +14,6 @@ class SCDFoodListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Observer(
       builder: (_) => Container(
         width: double.infinity,
@@ -29,10 +28,9 @@ class SCDFoodListPage extends StatelessWidget {
             sortColumnIndex: scdListStore.sortIndex,
             columns: [
               DataColumn(
-                label: Expanded(
-                  child: Text(
-                    'Food',
-                  ),
+                onSort: (i, asc) => scdListStore.sort((foodModel) => foodModel.food, i, asc),
+                label: Text(
+                  'Food',
                 ),
               ),
               DataColumn(

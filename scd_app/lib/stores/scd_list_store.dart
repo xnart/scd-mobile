@@ -20,7 +20,7 @@ abstract class _SCDListStore with Store {
   int sortIndex = 0;
 
   @observable
-  bool ascending = false;
+  bool ascending = true;
 
   @computed
   SCDTableSource get tableSource => SCDTableSource(filteredList, onTap: (_) {});
@@ -45,4 +45,12 @@ abstract class _SCDListStore with Store {
     searchText = text;
     SCDFoodListPage.tableKey.currentState.pageTo(0);
   }
+
+  @action
+  void sort(Comparable<dynamic> Function(SCDListModel record) getField, int i, bool asc) {
+    sortIndex = i;
+    ascending = asc;
+    tableSource.sort(getField, i, asc);
+  }
+
 }
