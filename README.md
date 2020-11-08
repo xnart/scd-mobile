@@ -3,7 +3,7 @@ Specific Carbohydrate Diet Mobile App aims to help patients at tracking their pr
 
 # Features
 - [ ] Intro food list
-- [ ] Legal-Illegal food list
+- [X] Legal-Illegal food list
 - [ ] Phase helper
 - [ ] Food tracking
 - [ ] Symtpom tracking
