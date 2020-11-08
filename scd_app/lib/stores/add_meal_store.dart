@@ -14,9 +14,15 @@ abstract class _AddMealStore with Store {
   @observable
   TimeOfDay selectedTime = TimeOfDay.now();
 
+  @observable
+  ObservableSet<SCDListModel> selectedFoods = ObservableSet.of([]);
+
   @action
   List<SCDListModel> getSuggestions(String text) {
+    if (text.isEmpty) return [];
     return scdListStore.foodListFuture.value
+        .toSet()
+        .difference(selectedFoods)
         .where((element) => element.food.toLowerCase().contains(text.toLowerCase()))
         .toList();
   }

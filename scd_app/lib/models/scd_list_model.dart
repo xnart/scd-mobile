@@ -19,4 +19,11 @@ class SCDListModel {
   SCDListModel({this.food, this.legal, this.note});
 
   factory SCDListModel.fromJson(Map<String, dynamic> json) => _$SCDListModelFromJson(json);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is SCDListModel && runtimeType == other.runtimeType && food == other.food;
+
+  @override
+  int get hashCode => food.hashCode;
 }

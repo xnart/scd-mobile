@@ -33,7 +33,7 @@ class GreetingPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Hi Bekir!",
+          "Hi!",
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25),
         ),
         SizedBox(height: 5),

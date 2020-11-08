@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:scd_app/components/MyAppBar.dart';
@@ -19,22 +20,74 @@ class AddMealPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            formCard(
-              child: TextField(
-                controller: _timeController,
-                decoration: InputDecoration(labelText: "Time", border: OutlineInputBorder()),
-                readOnly: true,
-                onTap: () {
-                  _selectDate(context);
-                },
-              ),
+        child: Observer(
+          builder: (_) => SingleChildScrollView(
+            child: Column(
+              children: [
+                formCard(
+                  child: TextField(
+                    controller: _timeController,
+                    decoration: InputDecoration(labelText: "Time", border: OutlineInputBorder()),
+                    readOnly: true,
+                    onTap: () {
+                      _selectDate(context);
+                    },
+                  ),
+                ),
+                formCard(
+                  child: foodField(context),
+                ),
+                foodListItem(),
+                RaisedButton(
+                  color: Colors.blue,
+                  onPressed: () {},
+                  child: Text(
+                    "Save",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              ],
             ),
-            formCard(
-              child: foodField(context),
-            ),
-          ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget foodListItem() {
+    if (store.selectedFoods.isEmpty) return SizedBox.shrink();
+    return formCard(
+      child: Container(
+        width: double.infinity,
+        child: Wrap(
+          runSpacing: 5.0,
+          spacing: 5.0,
+          children: store.selectedFoods
+              .map((e) => Container(
+                    width: 150,
+                    decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            e.food,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          InkWell(
+                              child: Icon(
+                                Icons.clear,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                              onTap: () => {store.selectedFoods.remove(e)})
+                        ],
+                      ),
+                    ),
+                  ))
+              .toList(),
         ),
       ),
     );
@@ -43,10 +96,16 @@ class AddMealPage extends StatelessWidget {
   Widget foodField(BuildContext context) {
     return TypeAheadField(
       textFieldConfiguration: TextFieldConfiguration(
-          decoration: InputDecoration(labelText: "Food", border: OutlineInputBorder()),
+          decoration: InputDecoration(labelText: "Search to add food", border: OutlineInputBorder()),
           controller: _typeAheadController),
       suggestionsCallback: (pattern) {
         return store.getSuggestions(pattern);
+      },
+      noItemsFoundBuilder: (context) {
+        if (_typeAheadController.text.isEmpty) {
+          return ListTile(title: Text("Type to search food"));
+        }
+        return ListTile(title: Text("Food has not found"));
       },
       itemBuilder: (context, suggestion) {
         return ListTile(
@@ -54,7 +113,8 @@ class AddMealPage extends StatelessWidget {
         );
       },
       onSuggestionSelected: (suggestion) {
-        this._typeAheadController.text = suggestion.food;
+        store.selectedFoods.add(suggestion);
+        _typeAheadController.clear();
       },
     );
   }
