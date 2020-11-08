@@ -5,7 +5,9 @@ class AddMealPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: MyAppBar(
+        title: "Add Meal",
+      ),
     );
   }
 }

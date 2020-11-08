@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: "Roboto",
       ),
-      initialRoute: "/addMeal",
+      initialRoute: "/",
       getPages: [
         GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
         GetPage(name: "/addMeal", page: () => AddMealPage(), binding: HomeBinding()),

@@ -12,7 +12,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final NavigationStore navigationStore = Get.find();
   final SCDListStore scdListStore = Get.find();
 
-  MyAppBar({Key key, this.height = 70, this.actions, this.title}) : super(key: key);
+  MyAppBar({Key key, this.height = 70, this.actions, this.title = ""}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +24,21 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             shadowColor: Colors.transparent,
             backgroundColor: Colors.white,
             leading: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.menu,
-                color: Colors.black,
-              ),
+              onPressed: () {
+                if (Get.routing.current == "/") {
+                } else {
+                  Get.back();
+                }
+              },
+              icon: Get.routing.current == "/"
+                  ? Icon(
+                      Icons.menu,
+                      color: Colors.black,
+                    )
+                  : Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
             ),
             title: buildTitle(context),
             actions: [
@@ -44,7 +54,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Widget buildTitle(context) {
-    if (navigationStore.currentPage == HomePages.SCD_LIST) {
+    if (navigationStore.currentPage == HomePages.SCD_LIST && Get.routing.current == "/") {
       return Container(
         height: 40,
         child: TextField(
@@ -66,7 +76,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       );
     } else {
-      return Container();
+      return Text(
+        title,
+        style: TextStyle(color: Colors.black),
+      );
     }
   }
 

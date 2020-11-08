@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class GreetingPage extends StatelessWidget {
   @override
@@ -19,7 +20,7 @@ class GreetingPage extends StatelessWidget {
             ),
           ),
           buttonCard(Icons.wc, "bowel movement", color: Colors.deepOrange),
-          buttonCard(Icons.set_meal, "meal", color: Colors.blue),
+          buttonCard(Icons.set_meal, "meal", color: Colors.blue, onTap: () => Get.toNamed("/addMeal")),
           buttonCard(Icons.error_outline, "symptom", color: Colors.red)
         ],
       ),
@@ -44,7 +45,7 @@ class GreetingPage extends StatelessWidget {
     );
   }
 
-  Widget buttonCard(IconData icon, String text, {Color color: Colors.black}) {
+  Widget buttonCard(IconData icon, String text, {Color color: Colors.black, onTap}) {
     return Container(
       width: double.infinity,
       height: 100,
@@ -53,7 +54,7 @@ class GreetingPage extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
-          onTap: () => {},
+          onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
