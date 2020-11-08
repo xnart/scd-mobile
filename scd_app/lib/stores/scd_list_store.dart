@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:scd_app/models/scd_list_model.dart';
-import 'package:scd_app/pages/scd_food_list.dart';
-import 'package:scd_app/pages/scd_table_source.dart';
+import 'package:scd_app/pages/home/scd_food_list.dart';
+import 'package:scd_app/pages/home/scd_table_source.dart';
 import 'package:scd_app/repository/scd_repository.dart';
 
 part 'scd_list_store.g.dart';
