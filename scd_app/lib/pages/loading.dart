@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,12 +17,14 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   void determineRoute() async {
-    FirebaseAuth.instance.authStateChanges().listen((user) {
+    StreamSubscription streamSubscription;
+    streamSubscription = FirebaseAuth.instance.idTokenChanges().listen((user) async {
       if (user != null) {
-        print(user);
-        Get.offAllNamed("/");
+        streamSubscription.cancel();
+        await Get.offAllNamed("/");
       } else {
-        Get.offAllNamed("/login");
+        streamSubscription.cancel();
+        await Get.offAllNamed("/login");
       }
     });
   }
