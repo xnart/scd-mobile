@@ -6,6 +6,7 @@ import 'package:scd_app/stores/scd_list_store.dart';
 
 class SCDFoodListPage extends StatelessWidget {
   final SCDListStore scdListStore = Get.find();
+  static GlobalKey<PaginatedDataTableState> tableKey = GlobalKey<PaginatedDataTableState>();
 
   SCDFoodListPage() {
     scdListStore.fetchSCDFoods();
@@ -13,12 +14,14 @@ class SCDFoodListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Observer(
       builder: (_) => Container(
         width: double.infinity,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: PaginatedDataTable(
+            key: tableKey,
             columnSpacing: 0,
             sortAscending: scdListStore.ascending,
             showCheckboxColumn: false,

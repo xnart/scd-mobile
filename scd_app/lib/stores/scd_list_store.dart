@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:scd_app/models/scd_list_model.dart';
+import 'package:scd_app/pages/scd_food_list.dart';
 import 'package:scd_app/pages/scd_table_source.dart';
 import 'package:scd_app/repository/scd_repository.dart';
 
@@ -22,7 +23,7 @@ abstract class _SCDListStore with Store {
   bool ascending = false;
 
   @computed
-  SCDTableSource get tableSource => SCDTableSource(foodListFuture?.value ?? [], onTap: (_) {});
+  SCDTableSource get tableSource => SCDTableSource(filteredList, onTap: (_) {});
 
   _SCDListStore() {
     fetchSCDFoods();
@@ -42,5 +43,6 @@ abstract class _SCDListStore with Store {
   @action
   void search(String text) {
     searchText = text;
+    SCDFoodListPage.tableKey.currentState.pageTo(0);
   }
 }

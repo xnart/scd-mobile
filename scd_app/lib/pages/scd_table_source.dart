@@ -43,7 +43,6 @@ class SCDTableSource extends DataTableSource {
   bool get isRowCountApproximate => false;
 
   @override
-  // TODO: implement rowCount
   int get rowCount => _records.length;
 
   @override
