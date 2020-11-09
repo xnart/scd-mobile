@@ -1,26 +1,22 @@
-import 'dart:math';
-
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:scd_app/components/form_card.dart';
 import 'package:scd_app/components/my_app_bar.dart';
-import 'package:scd_app/stores/meal/add_meal_store.dart';
+import 'package:scd_app/stores/bm/add_bm_store.dart';
 
-class AddMealPage extends StatelessWidget {
-  final AddMealStore store = Get.find();
+class AddBowelMovementPage extends StatelessWidget {
   final TextEditingController _timeController = TextEditingController(text: TimeOfDay.now().format(Get.context));
   final TextEditingController _dateController =
       TextEditingController(text: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]));
-  final TextEditingController _typeAheadController = TextEditingController();
+  final AddBMStore store = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: "Add meal to diary",
+        title: "Add BM to diary",
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -58,14 +54,10 @@ class AddMealPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                FormCard(
-                  child: foodField(context),
-                ),
-                foodListItem(),
                 RaisedButton(
                   color: Colors.blue,
                   onPressed: () {
-                    store.save();
+                    // store.save();
                   },
                   child: Text(
                     "Save",
@@ -77,71 +69,6 @@ class AddMealPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget foodListItem() {
-    if (store.selectedFoods.isEmpty) return SizedBox.shrink();
-    return FormCard(
-      child: Container(
-        width: double.infinity,
-        child: Wrap(
-          runSpacing: 5.0,
-          spacing: 5.0,
-          children: store.selectedFoods
-              .map((e) => Container(
-                    width: 150,
-                    decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            e.food,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          InkWell(
-                              child: Icon(
-                                Icons.clear,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                              onTap: () => {store.selectedFoods.remove(e)})
-                        ],
-                      ),
-                    ),
-                  ))
-              .toList(),
-        ),
-      ),
-    );
-  }
-
-  Widget foodField(BuildContext context) {
-    return TypeAheadField(
-      textFieldConfiguration: TextFieldConfiguration(
-          decoration: InputDecoration(labelText: "Search to add food", border: OutlineInputBorder()),
-          controller: _typeAheadController),
-      suggestionsCallback: (pattern) {
-        return store.getSuggestions(pattern);
-      },
-      noItemsFoundBuilder: (context) {
-        if (_typeAheadController.text.isEmpty) {
-          return ListTile(title: Text("Type to search food"));
-        }
-        return ListTile(title: Text("Food has not found"));
-      },
-      itemBuilder: (context, suggestion) {
-        return ListTile(
-          title: Text(suggestion.food),
-        );
-      },
-      onSuggestionSelected: (suggestion) {
-        store.selectedFoods.add(suggestion);
-        _typeAheadController.clear();
-      },
     );
   }
 

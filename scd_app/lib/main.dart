@@ -8,11 +8,13 @@ import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:scd_app/bindings/AddMealBinding.dart';
 import 'package:scd_app/bindings/HomeBinding.dart';
+import 'package:scd_app/pages/bm/add_bm.dart';
 import 'package:scd_app/pages/loading_screen.dart';
 import 'package:scd_app/pages/login.dart';
 import 'package:scd_app/pages/meal/add_meal.dart';
 import 'package:scd_app/stores/connectivity_store.dart';
 
+import 'bindings/add_bm_binding.dart';
 import 'pages/home/home.dart';
 
 Connectivity connectivity;
@@ -75,6 +77,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
         GetPage(name: "/login", page: () => LoginPage(), binding: HomeBinding()),
         GetPage(name: "/addMeal", page: () => AddMealPage(), binding: AddMealBinding()),
+        GetPage(name: "/addBM", page: () => AddBowelMovementPage(), binding: AddBMBinding()),
       ],
     );
   }
