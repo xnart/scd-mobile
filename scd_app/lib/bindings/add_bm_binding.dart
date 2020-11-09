@@ -9,6 +9,7 @@ import 'package:scd_app/stores/scd_list_store.dart';
 class AddBMBinding implements Bindings {
   @override
   void dependencies() {
+    Get.put(UserRepository());
     Get.put(AddBMStore());
   }
 }

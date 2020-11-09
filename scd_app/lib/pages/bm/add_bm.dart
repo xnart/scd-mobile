@@ -8,6 +8,7 @@ import 'package:scd_app/stores/bm/add_bm_store.dart';
 
 class AddBowelMovementPage extends StatelessWidget {
   final TextEditingController _timeController = TextEditingController(text: TimeOfDay.now().format(Get.context));
+  final TextEditingController _stoolTypeController = TextEditingController();
   final TextEditingController _dateController =
       TextEditingController(text: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]));
   final AddBMStore store = Get.find();
@@ -16,14 +17,15 @@ class AddBowelMovementPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: "Add BM to diary",
+        title: "Add BM",
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Observer(
           builder: (_) => SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              runSpacing: 15,
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -54,10 +56,26 @@ class AddBowelMovementPage extends StatelessWidget {
                     ),
                   ],
                 ),
+                FormCard(
+                  child: TextField(
+                    decoration: InputDecoration(labelText: "Stool Bristol Type", border: OutlineInputBorder()),
+                    readOnly: true,
+                    controller: _stoolTypeController,
+                    onTap: () => _selectStoolType(context),
+                  ),
+                ),
+                FormCard(
+                  child: Wrap(
+                    children: [
+                      CheckboxListTile(title: Text("Blood"), value: store.blood, onChanged: (val) => store.blood = val),
+                      CheckboxListTile(title: Text("Mucus"), value: store.mucus, onChanged: (val) => store.mucus = val)
+                    ],
+                  ),
+                ),
                 RaisedButton(
                   color: Colors.blue,
                   onPressed: () {
-                    // store.save();
+                    store.save();
                   },
                   child: Text(
                     "Save",
@@ -68,6 +86,44 @@ class AddBowelMovementPage extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _onSelectStoolType(val) {
+    store.selectedStoolType = val;
+    _stoolTypeController.text = "Type $val";
+    Get.back();
+  }
+
+  Widget buildStoolType() {
+    List<Widget> children = [];
+    for (var i = 1; i <= 7; i++) {
+      var column = InkWell(
+        onTap: () => _onSelectStoolType(i),
+        child: Material(
+          color: Colors.white,
+          child: Column(
+            children: [
+              Image.asset("assets/stools/type$i.jpg"),
+              SizedBox(height: 5),
+              Text("Type $i", textScaleFactor: 1.2),
+              Radio(value: i, groupValue: store.selectedStoolType, onChanged: _onSelectStoolType)
+            ],
+          ),
+        ),
+      );
+      children.add(column);
+    }
+    return Container(
+      width: double.infinity,
+      color: Colors.white,
+      child: FormCard(
+        child: Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            runAlignment: WrapAlignment.center,
+            children: children),
       ),
     );
   }
@@ -93,5 +149,9 @@ class AddBowelMovementPage extends StatelessWidget {
       return store.selectedTime = picked;
     }
     return TimeOfDay.now();
+  }
+
+  _selectStoolType(BuildContext context) {
+    Get.dialog(Observer(builder: (_) => buildStoolType()));
   }
 }

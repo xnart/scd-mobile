@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:scd_app/models/bm_model.dart';
 import 'package:scd_app/models/meal_model.dart';
 
 class UserRepository {
@@ -8,5 +9,9 @@ class UserRepository {
 
   Future saveMeal(MealModel mealModel) {
     return firestore.collection("users").doc(auth.currentUser.uid).collection("meals").add(mealModel.toJson());
+  }
+
+  Future saveBM(BMModel model) {
+    return firestore.collection("users").doc(auth.currentUser.uid).collection("bms").add(model.toJson());
   }
 }

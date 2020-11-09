@@ -69,6 +69,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: "Roboto",
+        scaffoldBackgroundColor: Colors.white
       ),
       initialRoute: "/loading",
       initialBinding: HomeBinding(),

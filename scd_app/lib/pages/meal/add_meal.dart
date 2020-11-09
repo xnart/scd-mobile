@@ -26,8 +26,9 @@ class AddMealPage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Observer(
           builder: (_) => SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              runSpacing: 15,
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.min,

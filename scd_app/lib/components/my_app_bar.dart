@@ -19,6 +19,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return SafeArea(
       child: Observer(
         builder: (_) => Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: AppBar(
             shadowColor: Colors.transparent,
