@@ -27,7 +27,7 @@ abstract class _SCDListStore with Store {
   SCDTableSource get tableSource => SCDTableSource(filteredList, onTap: (SCDListModel scdModel) {
         if (scdModel.note.isNotEmpty) {
           Get.defaultDialog(
-              title: "Note",
+              title: scdModel.food,
               content: ConstrainedBox(
                 constraints: BoxConstraints(maxHeight: Get.height / 2 - 50),
                 child: SingleChildScrollView(
