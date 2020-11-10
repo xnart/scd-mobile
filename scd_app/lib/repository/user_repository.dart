@@ -14,4 +14,9 @@ class UserRepository {
   Future saveBM(BMModel model) {
     return firestore.collection("users").doc(auth.currentUser.uid).collection("bms").add(model.toJson());
   }
+
+  Future<List<BMModel>> fetchBMs() async {
+    var snapshot = await firestore.collection("users").doc(auth.currentUser.uid).collection("bms").get();
+    return snapshot.docs.map((element) => BMModel.fromJson(element.data())).toList();
+  }
 }

@@ -32,9 +32,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 }
               },
               icon: Get.routing.current == "/"
-                  ? Icon(
-                      Icons.menu,
+                  ? IconButton(
+                      icon: Icon(Icons.menu),
                       color: Colors.black,
+                      onPressed: () => Scaffold.of(context).openDrawer(),
                     )
                   : Icon(
                       Icons.arrow_back,

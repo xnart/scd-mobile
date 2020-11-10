@@ -19,6 +19,17 @@ class HomePage extends StatelessWidget {
         resizeToAvoidBottomPadding: true,
         backgroundColor: Colors.white,
         bottomNavigationBar: bottomBar(),
+        drawer: Drawer(
+            child: ListView(
+          children: [
+            DrawerHeader(child: null),
+            ListTile(
+              leading: Icon(Icons.wc),
+              title: Text("Bowel Movement History", textScaleFactor: 1.1),
+              onTap: () => Get.toNamed("bmHistory"),
+            )
+          ],
+        )),
         appBar: MyAppBar(),
         body: Observer(
           builder: (_) => Container(
