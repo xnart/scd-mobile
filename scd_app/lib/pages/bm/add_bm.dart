@@ -12,6 +12,7 @@ class AddBowelMovementPage extends StatelessWidget {
   final TextEditingController _dateController =
       TextEditingController(text: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]));
   final AddBMStore store = Get.find();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,66 +24,78 @@ class AddBowelMovementPage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Observer(
           builder: (_) => SingleChildScrollView(
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              runSpacing: 15,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: FormCard(
-                        child: TextField(
-                          controller: _dateController,
-                          decoration: InputDecoration(labelText: "Date", border: OutlineInputBorder()),
-                          readOnly: true,
-                          onTap: () {
-                            _selectDate(context);
-                          },
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: FormCard(
-                        child: TextField(
-                          controller: _timeController,
-                          decoration: InputDecoration(labelText: "Time", border: OutlineInputBorder()),
-                          readOnly: true,
-                          onTap: () {
-                            _selectTime(context);
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                FormCard(
-                  child: TextField(
-                    decoration: InputDecoration(labelText: "Stool Bristol Type", border: OutlineInputBorder()),
-                    readOnly: true,
-                    controller: _stoolTypeController,
-                    onTap: () => _selectStoolType(context),
-                  ),
-                ),
-                FormCard(
-                  child: Wrap(
+            child: Form(
+              key: _formKey,
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                runSpacing: 15,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      CheckboxListTile(title: Text("Blood"), value: store.blood, onChanged: (val) => store.blood = val),
-                      CheckboxListTile(title: Text("Mucus"), value: store.mucus, onChanged: (val) => store.mucus = val)
+                      Expanded(
+                        child: FormCard(
+                          child: TextField(
+                            controller: _dateController,
+                            decoration: InputDecoration(labelText: "Date", border: OutlineInputBorder()),
+                            readOnly: true,
+                            onTap: () {
+                              _selectDate(context);
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: FormCard(
+                          child: TextField(
+                            controller: _timeController,
+                            decoration: InputDecoration(labelText: "Time", border: OutlineInputBorder()),
+                            readOnly: true,
+                            onTap: () {
+                              _selectTime(context);
+                            },
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                RaisedButton(
-                  color: Colors.blue,
-                  onPressed: () {
-                    store.save();
-                  },
-                  child: Text(
-                    "Save",
-                    style: TextStyle(color: Colors.white),
+                  FormCard(
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: "Stool Bristol Type", border: OutlineInputBorder()),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (val) {
+                        if (store.selectedStoolType == null) {
+                          return "Please select stool type";
+                        }
+                        return null;
+                      },
+                      readOnly: true,
+                      controller: _stoolTypeController,
+                      onTap: () => _selectStoolType(context),
+                    ),
                   ),
-                )
-              ],
+                  FormCard(
+                    child: Wrap(
+                      children: [
+                        CheckboxListTile(
+                            title: Text("Blood"), value: store.blood, onChanged: (val) => store.blood = val)
+                      ],
+                    ),
+                  ),
+                  RaisedButton(
+                    color: Colors.blue,
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        store.save();
+                      }
+                    },
+                    child: Text(
+                      "Save",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
