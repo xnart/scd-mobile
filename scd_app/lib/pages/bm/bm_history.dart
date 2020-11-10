@@ -22,7 +22,7 @@ class BMHistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: "Bowel Movement History",
+        title: "Bowel Movement Journal",
       ),
       body: MyObserver(
         future: () => store.fetchBMHistoryFuture,
@@ -48,7 +48,6 @@ class BMHistoryPage extends StatelessWidget {
 
   void _onTap(CalendarTapDetails details) {
     store.showBMs = details.appointments.map<BMModel>((e) => e.bmModel).toList();
-    print(details.appointments);
   }
 
   Widget buildListSection(BuildContext context) {

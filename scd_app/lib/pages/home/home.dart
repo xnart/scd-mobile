@@ -25,8 +25,11 @@ class HomePage extends StatelessWidget {
             DrawerHeader(child: null),
             ListTile(
               leading: Icon(Icons.wc),
-              title: Text("Bowel Movement History", textScaleFactor: 1.1),
-              onTap: () => Get.toNamed("bmHistory"),
+              title: Text("Bowel Movement Journal", textScaleFactor: 1.1),
+              onTap: () {
+                Get.back();
+                Get.toNamed("bmHistory");
+              },
             )
           ],
         )),
