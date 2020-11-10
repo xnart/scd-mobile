@@ -17,6 +17,7 @@ import 'package:scd_app/pages/meal/add_meal.dart';
 import 'package:scd_app/stores/connectivity_store.dart';
 
 import 'bindings/bm_binding.dart';
+import 'pages/about.dart';
 import 'pages/home/home.dart';
 
 Connectivity connectivity;
@@ -82,6 +83,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: "/addMeal", page: () => AddMealPage(), binding: AddMealBinding()),
         GetPage(name: "/addBM", page: () => AddBowelMovementPage(), binding: BMBinding()),
         GetPage(name: "/bmHistory", page: () => BMPage(), binding: BMBinding()),
+        GetPage(name: "/about", page: () => AboutPage()),
       ],
     );
   }

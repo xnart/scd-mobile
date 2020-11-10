@@ -24,14 +24,25 @@ class HomePage extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              child: Image.asset("assets/drawer_image.jpg", fit: BoxFit.fitHeight,),
+              child: Image.asset(
+                "assets/drawer_image.jpg",
+                fit: BoxFit.fitHeight,
+              ),
             ),
             ListTile(
               leading: Icon(Icons.wc),
               title: Text("Bowel Movement Journal", textScaleFactor: 1.1),
               onTap: () {
                 Get.back();
-                Get.toNamed("bmHistory");
+                Get.toNamed("/bmHistory");
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text("About", textScaleFactor: 1.1),
+              onTap: () {
+                Get.back();
+                Get.toNamed("/about");
               },
             )
           ],
