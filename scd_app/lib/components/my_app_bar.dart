@@ -44,9 +44,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             title: buildTitle(context),
             actions: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://banner2.cleanpng.com/20180920/yko/kisspng-computer-icons-portable-network-graphics-avatar-ic-5ba3c66df14d32.3051789815374598219884.jpg"),
+              IconButton(
+                icon: Icon(Icons.account_circle_rounded, color: Colors.black,size: 30,),
+                onPressed: () {},
               )
             ],
           ),
