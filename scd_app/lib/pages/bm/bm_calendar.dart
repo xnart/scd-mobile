@@ -1,16 +1,19 @@
+import 'dart:collection';
+
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:scd_app/components/my_app_bar.dart';
 import 'package:scd_app/components/my_observer.dart';
 import 'package:scd_app/models/bm_model.dart';
 import 'package:scd_app/stores/bm/bm_history_store.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-class BMHistoryPage extends StatelessWidget {
+class BMCalendarPage extends StatelessWidget {
   final BMHistoryStore store = Get.find();
 
-  BMHistoryPage() {
+
+
+  BMCalendarPage(){
     _init();
   }
 
@@ -20,28 +23,23 @@ class BMHistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(
-        title: "Bowel Movement Journal",
-      ),
-      body: MyObserver(
-        future: () => store.fetchBMHistoryFuture,
-        onRetry: _init,
-        builder: (_) => ListView(
-          children: [
-            Container(
-              child: SfCalendar(
-                  view: CalendarView.month,
-                  dataSource: BMDataSource(_getDataSource()),
-                  monthCellBuilder: _monthCellBuilder,
-                  onTap: _onTap,
-                  monthViewSettings: MonthViewSettings(
-                    showTrailingAndLeadingDates: false,
-                  )),
-            ),
-            buildListSection(context)
-          ],
-        ),
+    return MyObserver(
+      future: () => store.fetchBMHistoryFuture,
+      onRetry: _init,
+      builder: (_) => ListView(
+        children: [
+          Container(
+            child: SfCalendar(
+                view: CalendarView.month,
+                dataSource: BMDataSource(_getDataSource()),
+                monthCellBuilder: _monthCellBuilder,
+                onTap: _onTap,
+                monthViewSettings: MonthViewSettings(
+                  showTrailingAndLeadingDates: false,
+                )),
+          ),
+          buildListSection(Get.context)
+        ],
       ),
     );
   }
@@ -49,6 +47,7 @@ class BMHistoryPage extends StatelessWidget {
   void _onTap(CalendarTapDetails details) {
     store.showBMs = details.appointments.map<BMModel>((e) => e.bmModel).toList();
   }
+
 
   Widget buildListSection(BuildContext context) {
     if (store.showBMs.length == 0) return Container();
@@ -59,10 +58,15 @@ class BMHistoryPage extends StatelessWidget {
       ),
       ...store.showBMs
           .map((e) => e.type != 0
-              ? ListTile(
-                  title: Text("Type ${e.type}"),
-                  trailing: Text(formatDate(e.date, [HH, ":", mm])),
-                  subtitle: Text("${e.blood ? "with" : "no"} blood"),
+              ? Column(
+                  children: [
+                    ListTile(
+                      title: Text("Type ${e.type}"),
+                      trailing: Text(formatDate(e.date, [HH, ":", mm])),
+                      subtitle: Text("${e.blood ? "with" : "no"} blood"),
+                    ),
+                    Divider(),
+                  ],
                 )
               : SizedBox.shrink())
           .toList()

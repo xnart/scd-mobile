@@ -9,7 +9,8 @@ import 'package:mobx/mobx.dart';
 import 'package:scd_app/bindings/AddMealBinding.dart';
 import 'package:scd_app/bindings/HomeBinding.dart';
 import 'package:scd_app/pages/bm/add_bm.dart';
-import 'package:scd_app/pages/bm/bm_history.dart';
+import 'package:scd_app/pages/bm/bm_calendar.dart';
+import 'package:scd_app/pages/bm/bm_page.dart';
 import 'package:scd_app/pages/loading_screen.dart';
 import 'package:scd_app/pages/login.dart';
 import 'package:scd_app/pages/meal/add_meal.dart';
@@ -80,7 +81,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: "/login", page: () => LoginPage(), binding: HomeBinding()),
         GetPage(name: "/addMeal", page: () => AddMealPage(), binding: AddMealBinding()),
         GetPage(name: "/addBM", page: () => AddBowelMovementPage(), binding: BMBinding()),
-        GetPage(name: "/bmHistory", page: () => BMHistoryPage(), binding: BMBinding()),
+        GetPage(name: "/bmHistory", page: () => BMPage(), binding: BMBinding()),
       ],
     );
   }

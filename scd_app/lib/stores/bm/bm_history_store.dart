@@ -16,6 +16,14 @@ abstract class _BMHistoryStore with Store {
   @observable
   List<BMModel> showBMs = [];
 
+  @observable
+  HistoryPage currentPage = HistoryPage.HISTORY;
+
   @action
   ObservableFuture fetchBMHistory() => fetchBMHistoryFuture = ObservableFuture(userRepository.fetchBMs());
+}
+
+enum HistoryPage{
+  HISTORY,
+  CHART
 }
