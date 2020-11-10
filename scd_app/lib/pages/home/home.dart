@@ -21,8 +21,11 @@ class HomePage extends StatelessWidget {
         bottomNavigationBar: bottomBar(),
         drawer: Drawer(
             child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(child: null),
+            DrawerHeader(
+              child: Image.asset("assets/drawer_image.jpg", fit: BoxFit.fitHeight,),
+            ),
             ListTile(
               leading: Icon(Icons.wc),
               title: Text("Bowel Movement Journal", textScaleFactor: 1.1),
