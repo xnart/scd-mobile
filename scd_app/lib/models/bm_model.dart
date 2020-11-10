@@ -17,9 +17,8 @@ class BMModel {
   @JsonKey(fromJson: stringToDateTime, toJson: dateTimeToString)
   DateTime date;
   bool blood;
-  bool mucus;
 
-  BMModel({this.type, this.date, this.blood, this.mucus});
+  BMModel({this.type, this.date, this.blood});
 
   factory BMModel.fromJson(Map<String, dynamic> json) => _$BMModelFromJson(json);
   Map<String, dynamic> toJson() => _$BMModelToJson(this);

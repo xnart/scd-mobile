@@ -23,14 +23,11 @@ abstract class _AddBMStore with Store {
   @observable
   bool blood = false;
 
-  @observable
-  bool mucus = false;
-
   @action
   void save() {
     var dateTime =
         DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.hour, selectedTime.minute);
-    var bmModel = BMModel(type: selectedStoolType, date: dateTime, blood: blood, mucus: mucus);
+    var bmModel = BMModel(type: selectedStoolType, date: dateTime, blood: blood);
     userRepository.saveBM(bmModel).then((value) => Get.snackbar("Success", "Saved"));
   }
 }
