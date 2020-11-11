@@ -14,7 +14,7 @@ class BMChart extends StatelessWidget {
       width: double.infinity,
       height: Get.context.height / 2,
       child: SfCartesianChart(
-          primaryXAxis: DateTimeAxis(),
+          primaryXAxis: DateTimeAxis(intervalType: DateTimeIntervalType.days),
           title: ChartTitle(text: 'BM per day'),
           tooltipBehavior: TooltipBehavior(enable: true),
           primaryYAxis: NumericAxis(interval: 1),
@@ -26,8 +26,10 @@ class BMChart extends StatelessWidget {
     HashMap<DateTime, int> dates = HashMap.fromIterable([]);
     store.fetchBMHistoryFuture.value.forEach((e) {
       var date = DateTime(e.date.year, e.date.month, e.date.day);
+      if(dates.containsKey(date)){
+        dates.update(date, (value) => value + 1);
+      }
       dates.putIfAbsent(date, () => 1);
-      dates.update(date, (value) => value + 1);
     });
     List<ChartData> chartData = [];
     dates.forEach((DateTime key, int value) => chartData.add(ChartData(x: key, y: value)));
