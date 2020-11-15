@@ -11,8 +11,6 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 class BMCalendarPage extends StatelessWidget {
   final BMHistoryStore store = Get.find();
 
-
-
   BMCalendarPage(){
     _init();
   }
@@ -62,7 +60,7 @@ class BMCalendarPage extends StatelessWidget {
                   children: [
                     ListTile(
                       title: Text("Type ${e.type}"),
-                      trailing: Text(formatDate(e.date, [HH, ":", mm])),
+                      trailing: Text(formatDate(e.date, [HH, ":", nn])),
                       subtitle: Text("${e.blood ? "with" : "no"} blood"),
                     ),
                     Divider(),
