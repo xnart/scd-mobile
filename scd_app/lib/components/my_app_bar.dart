@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get.dart';
@@ -44,10 +45,23 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             title: buildTitle(context),
             actions: [
-              IconButton(
-                icon: Icon(Icons.account_circle_rounded, color: Colors.black,size: 30,),
-                onPressed: () {},
-              )
+              DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  icon: Icon(Icons.account_circle),
+                  items: <String>['Logout'].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: new Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (val) async {
+                    if(val == "Logout"){
+                      await FirebaseAuth.instance.signOut();
+                      Get.offAllNamed("/login");
+                    }
+                  },
+                ),
+              ),
             ],
           ),
         ),
