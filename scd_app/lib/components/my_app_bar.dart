@@ -46,15 +46,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             title: buildTitle(context),
             actions: [
               DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  icon: Icon(Icons.account_circle),
-                  items: <String>['Logout'].map((String value) {
-                    return DropdownMenuItem<String>(
+                child: PopupMenuButton<String>(
+                  icon: Icon(Icons.account_circle, color: Colors.black),
+                  itemBuilder: (_) => <String>['Logout'].map((String value) {
+                    return PopupMenuItem<String>(
                       value: value,
                       child: new Text(value),
                     );
                   }).toList(),
-                  onChanged: (val) async {
+                  onSelected: (val) async {
                     if(val == "Logout"){
                       await FirebaseAuth.instance.signOut();
                       Get.offAllNamed("/login");
