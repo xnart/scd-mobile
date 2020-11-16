@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,6 +30,7 @@ class BMCalendarPage extends StatelessWidget {
                 dataSource: BMDataSource(_getDataSource()),
                 monthCellBuilder: _monthCellBuilder,
                 onTap: _onTap,
+                showNavigationArrow: true,
                 monthViewSettings: MonthViewSettings(
                   showTrailingAndLeadingDates: false,
                 )),

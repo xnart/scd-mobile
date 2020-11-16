@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
-  final TextEditingController _usernameController = TextEditingController(text: "bekirdurak97@gmail.com");
-  final TextEditingController _passwordController = TextEditingController(text: "qazmabeko4");
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 

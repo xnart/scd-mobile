@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:scd_app/stores/bm/bm_history_store.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -22,25 +23,27 @@ class BMChart extends StatelessWidget {
     );
   }
 
-  List<LineSeries<ChartData, DateTime>> _getLabelDateTimeAxisSeries() {
+  List<ScatterSeries<ChartData, DateTime>> _getLabelDateTimeAxisSeries() {
     HashMap<DateTime, int> dates = HashMap.fromIterable([]);
-    store.fetchBMHistoryFuture.value.forEach((e) {
+    store.fetchBMHistoryFuture.value?.forEach((e) {
       var date = DateTime(e.date.year, e.date.month, e.date.day);
-      if(dates.containsKey(date)){
+      if (dates.containsKey(date)) {
         dates.update(date, (value) => value + 1);
       }
       dates.putIfAbsent(date, () => 1);
     });
     List<ChartData> chartData = [];
     dates.forEach((DateTime key, int value) => chartData.add(ChartData(x: key, y: value)));
-    return <LineSeries<ChartData, DateTime>>[
-      LineSeries<ChartData, DateTime>(
+    return <ScatterSeries<ChartData, DateTime>>[
+      ScatterSeries<ChartData, DateTime>(
           name: "BM Count",
+          opacity: 0.8,
           dataSource: chartData,
+          emptyPointSettings: EmptyPointSettings(mode: EmptyPointMode.zero),
           xValueMapper: (ChartData data, _) => data.x,
           yValueMapper: (ChartData data, _) => data.y,
           markerSettings: MarkerSettings(isVisible: true),
-          color: const Color.fromRGBO(232, 84, 84, 1))
+          color: Colors.brown)
     ];
   }
 }
