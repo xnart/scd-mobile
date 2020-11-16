@@ -16,7 +16,7 @@ class BMPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: "Bowel Movement Journal",
+        title: "BM Journal",
       ),
       bottomNavigationBar: _bottomBar(),
       body: Observer(
