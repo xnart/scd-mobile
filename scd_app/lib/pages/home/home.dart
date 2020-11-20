@@ -38,6 +38,14 @@ class HomePage extends StatelessWidget {
               },
             ),
             ListTile(
+              leading: Icon(Icons.set_meal),
+              title: Text("Food Journal", textScaleFactor: 1.1),
+              onTap: () {
+                Get.back();
+                Get.toNamed("/mealHistory");
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.info),
               title: Text("About", textScaleFactor: 1.1),
               onTap: () {

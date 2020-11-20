@@ -19,4 +19,9 @@ class UserRepository {
     var snapshot = await firestore.collection("users").doc(auth.currentUser.uid).collection("bms").get();
     return snapshot.docs.map((element) => BMModel.fromJson(element.data())).toList();
   }
+
+  Future<List<MealModel>> fetchMealHistory() async {
+    var snapshot = await firestore.collection("users").doc(auth.currentUser.uid).collection("meals").get();
+    return snapshot.docs.map((element) => MealModel.fromJson(element.data())).toList();
+  }
 }

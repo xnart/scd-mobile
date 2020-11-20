@@ -6,17 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
-import 'package:scd_app/bindings/AddMealBinding.dart';
-import 'package:scd_app/bindings/HomeBinding.dart';
+import 'package:scd_app/bindings/add_meal_binding.dart';
+import 'package:scd_app/bindings/home_binding.dart';
 import 'package:scd_app/pages/bm/add_bm.dart';
 import 'package:scd_app/pages/bm/bm_calendar.dart';
 import 'package:scd_app/pages/bm/bm_page.dart';
 import 'package:scd_app/pages/loading_screen.dart';
 import 'package:scd_app/pages/login.dart';
 import 'package:scd_app/pages/meal/add_meal.dart';
+import 'package:scd_app/pages/meal/meal_page.dart';
 import 'package:scd_app/stores/connectivity_store.dart';
 
 import 'bindings/bm_binding.dart';
+import 'bindings/meal_binding.dart';
 import 'pages/about.dart';
 import 'pages/home/home.dart';
 
@@ -83,6 +85,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: "/addMeal", page: () => AddMealPage(), binding: AddMealBinding()),
         GetPage(name: "/addBM", page: () => AddBowelMovementPage(), binding: BMBinding()),
         GetPage(name: "/bmHistory", page: () => BMPage(), binding: BMBinding()),
+        GetPage(name: "/mealHistory", page: () => MealPage(), binding: MealBinding()),
         GetPage(name: "/about", page: () => AboutPage()),
       ],
     );
