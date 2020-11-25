@@ -1,3 +1,6 @@
+import 'dart:collection';
+
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scd_app/components/form_card.dart';
@@ -26,22 +29,38 @@ class MealPage extends StatelessWidget {
         future: () => store.fetchMealHistoryFuture,
         onRetry: _init,
         builder: (_) => Container(
+          height: Get.size.height,
           margin: const EdgeInsets.all(5),
           child: FormCard(
-            child: ListView(
-              children: [
-                Container(
-                  child: SfCalendar(
-                      view: CalendarView.month,
-                      dataSource: MealDataSource(_getDataSource()),
-                      showNavigationArrow: true,
-                      monthCellBuilder: _monthCellBuilder,
-                      monthViewSettings: MonthViewSettings(
-                        showTrailingAndLeadingDates: false,
-                      )),
-                ),
-                // buildListSection(Get.context)
-              ],
+            child: SfCalendar(
+              view: CalendarView.schedule,
+              onTap: (calendarTapDetails) {
+                var list = calendarTapDetails.appointments;
+                List<Text> texts = List();
+                list?.forEach((e) {
+                  texts.add(Text("${e.eventName}\n"));
+                });
+                if (texts.isNotEmpty) {
+                  Get.defaultDialog(
+                      title: formatDate(calendarTapDetails.date, [yyyy, "-", mm, "-", dd]),
+                      content: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: texts,
+                        ),
+                      ));
+                }
+              },
+              scheduleViewSettings: ScheduleViewSettings(
+                  hideEmptyScheduleWeek: true,
+                  appointmentTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
+                  monthHeaderSettings: MonthHeaderSettings(
+                    height: 70,
+                  )),
+              dataSource: MealDataSource(_getDataSource()),
+              showDatePickerButton: true,
             ),
           ),
         ),
@@ -49,57 +68,10 @@ class MealPage extends StatelessWidget {
     );
   }
 
-  Widget _monthCellBuilder(BuildContext buildContext, MonthCellDetails details) {
-    final Color backgroundColor = _getMonthCellBackgroundColor(details);
-    final Color defaultColor = Get.theme.brightness == Brightness.dark ? Colors.black54 : Colors.white;
-    return Container(
-      decoration: BoxDecoration(color: backgroundColor, border: Border.all(color: defaultColor, width: 0.5)),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              details.date.day.toString(),
-              style: TextStyle(color: Colors.black),
-            ),
-            Wrap(
-              alignment: WrapAlignment.center,
-              spacing: 3,
-              runSpacing: 3,
-              children: [...details.appointments.map((e) => dotCircle())],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget dotCircle() {
-    return Container(
-      width: 7.0,
-      height: 7.0,
-      decoration: new BoxDecoration(
-        color: Colors.brown.shade700,
-        shape: BoxShape.circle,
-      ),
-    );
-  }
-
-  Color _getMonthCellBackgroundColor(MonthCellDetails details) {
-    var bmCount = details.appointments.length;
-    if (bmCount == 0) {
-      return Colors.grey.shade50;
-    } else if (bmCount > 10) {
-      return Colors.blue;
-    }
-
-    return Colors.blue.withOpacity(bmCount / 10);
-  }
-
   List<MealEvent> _getDataSource() {
     List<MealModel> list = store.fetchMealHistoryFuture.value;
 
-    return list.map((e) => MealEvent("Type ", e.date, e.date, Colors.black, false, e)).toList();
+    return list.map((e) => MealEvent(e.foods.join(", "), e.date, e.date, Color(0xff30343F), true, e)).toList();
   }
 }
 
