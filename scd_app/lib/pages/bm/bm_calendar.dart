@@ -42,7 +42,9 @@ class BMCalendarPage extends StatelessWidget {
   }
 
   void _onTap(CalendarTapDetails details) {
-    store.showBMs = details.appointments.map<BMModel>((e) => e.bmModel).toList();
+    if(details.appointments != null){
+      store.showBMs = details.appointments.map<BMModel>((e) => e.bmModel).toList();
+    }
   }
 
 
