@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get.dart';
 import 'package:scd_app/components/my_observer.dart';
 import 'package:scd_app/stores/scd_list_store.dart';

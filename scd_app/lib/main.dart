@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,7 +8,6 @@ import 'package:mobx/mobx.dart';
 import 'package:scd_app/bindings/add_meal_binding.dart';
 import 'package:scd_app/bindings/home_binding.dart';
 import 'package:scd_app/pages/bm/add_bm.dart';
-import 'package:scd_app/pages/bm/bm_calendar.dart';
 import 'package:scd_app/pages/bm/bm_page.dart';
 import 'package:scd_app/pages/loading_screen.dart';
 import 'package:scd_app/pages/login.dart';

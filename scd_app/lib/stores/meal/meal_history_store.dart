@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
-import 'package:scd_app/models/bm_model.dart';
 import 'package:scd_app/models/meal_model.dart';
 import 'package:scd_app/repository/user_repository.dart';
 
