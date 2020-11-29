@@ -6,12 +6,11 @@ class GreetingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 35),
-      height: double.infinity,
-      child: Wrap(
-        runSpacing: 25,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           greeting(),
-          Divider(color: Colors.white),
+          SizedBox(height: 30),
           Center(
             child: Text(
               "I just had...",
@@ -19,8 +18,11 @@ class GreetingPage extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
+          SizedBox(height: 10),
           buttonCard(Icons.wc, "bowel movement", color: Colors.deepOrange, onTap: () => Get.toNamed("/addBM")),
+          SizedBox(height: 10),
           buttonCard(Icons.set_meal, "meal", color: Colors.blue, onTap: () => Get.toNamed("/addMeal")),
+          SizedBox(height: 10),
           buttonCard(Icons.error_outline, "symptom", color: Colors.red)
         ],
       ),
@@ -46,27 +48,28 @@ class GreetingPage extends StatelessWidget {
   }
 
   Widget buttonCard(IconData icon, String text, {Color color: Colors.black, onTap}) {
-    return Container(
-      width: double.infinity,
-      height: 100,
-      child: Card(
-        elevation: 10,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(10),
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(child: Icon(icon, size: 30, color: color)),
-                  Expanded(
-                    flex: 3,
-                    child: Text(text, textScaleFactor: 1.5, style: TextStyle(color: color)),
-                  ),
-                ],
+    return Flexible(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: 100),
+        child: Card(
+          elevation: 10,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10),
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(child: Icon(icon, size: 30, color: color)),
+                    Expanded(
+                      flex: 3,
+                      child: Text(text, textScaleFactor: 1.5, style: TextStyle(color: color)),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
