@@ -23,7 +23,7 @@ class GreetingPage extends StatelessWidget {
           SizedBox(height: 10),
           buttonCard(Icons.set_meal, "meal", color: Colors.blue, onTap: () => Get.toNamed("/addMeal")),
           SizedBox(height: 10),
-          buttonCard(Icons.error_outline, "symptom", color: Colors.red)
+          buttonCard(Icons.error_outline, "symptom", color: Colors.red, onTap: () => Get.toNamed("/addSymptom"))
         ],
       ),
     );

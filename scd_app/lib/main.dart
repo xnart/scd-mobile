@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import 'package:scd_app/bindings/add_meal_binding.dart';
+import 'package:scd_app/bindings/add_symptom_binding.dart';
 import 'package:scd_app/bindings/home_binding.dart';
 import 'package:scd_app/pages/bm/add_bm.dart';
 import 'package:scd_app/pages/bm/bm_page.dart';
@@ -13,6 +14,7 @@ import 'package:scd_app/pages/loading_screen.dart';
 import 'package:scd_app/pages/login.dart';
 import 'package:scd_app/pages/meal/add_meal.dart';
 import 'package:scd_app/pages/meal/meal_page.dart';
+import 'package:scd_app/pages/symptom/add_symptom.dart';
 import 'package:scd_app/stores/connectivity_store.dart';
 
 import 'bindings/bm_binding.dart';
@@ -84,6 +86,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: "/addBM", page: () => AddBowelMovementPage(), binding: BMBinding()),
         GetPage(name: "/bmHistory", page: () => BMPage(), binding: BMBinding()),
         GetPage(name: "/mealHistory", page: () => MealPage(), binding: MealBinding()),
+        GetPage(name: "/addSymptom", page: () => AddSymptomPage(), binding: AddSymptomBinding()),
         GetPage(name: "/about", page: () => AboutPage()),
       ],
     );
